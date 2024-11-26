@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editTextTextPersonName4"
+        android:layout_width="269dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="360dp"
+        android:background="@drawable/rounded_edit_text"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="415dp"
+        android:layout_height="346dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.067"
+        app:srcCompat="@drawable/_ffcb91460d1d4b0d2ef8b3424b30779" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName2"
+        android:layout_width="269dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="440dp"
+        android:background="@drawable/rounded_edit_text"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerrole"
+        android:layout_width="269dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="528dp"
+        android:background="@drawable/rounded_edit_text"
+        android:entries="@array/role"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnsignup"
+        android:layout_width="168dp"
+        android:layout_height="47dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="628dp"
+        android:background="@drawable/round_button"
+        android:text="Signup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="role">
+        <item>Select</item>
+        <item>Bus Owner</item>
+        <item>Driver</item>
+        <item>Passenger</item>
+    </string-array>
+</resources>
