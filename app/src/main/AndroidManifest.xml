@@ -28,6 +28,10 @@
             android:theme="@style/Theme.BusBookingSystemMadCw.NoActionBar"/>
         <activity android:name=".PassengerDashboard"
             android:theme="@style/Theme.BusBookingSystemMadCw.NoActionBar"/>
+        <activity android:name=".SelectBuses"
+            android:theme="@style/Theme.BusBookingSystemMadCw.NoActionBar"/>
+        <activity android:name=".BusSheats"
+            android:theme="@style/Theme.BusBookingSystemMadCw.NoActionBar"/>
     </application>
 
 </manifest>
