@@ -32,6 +32,8 @@
             android:theme="@style/Theme.BusBookingSystemMadCw.NoActionBar"/>
         <activity android:name=".BusSheats"
             android:theme="@style/Theme.BusBookingSystemMadCw.NoActionBar"/>
+        <activity android:name=".DriverDashboard"
+            android:theme="@style/Theme.BusBookingSystemMadCw.NoActionBar"/>
     </application>
 
 </manifest>

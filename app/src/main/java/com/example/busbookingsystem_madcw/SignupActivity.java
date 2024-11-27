@@ -8,51 +8,66 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class SignupActivity extends AppCompatActivity {
 
+    private DatabaseHelper databaseHelper;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_activity);
-        Log.d("LoginActivity", "LoginActivity loaded.");
+        Log.d("SignupActivity", "SignupActivity loaded.");
 
-        // Initialize Spinner
+        // Initialize views and database helper
+        databaseHelper = new DatabaseHelper(this);
         Spinner roleSpinner = findViewById(R.id.spinnerrole);
         Button signupButton = findViewById(R.id.btnsignup);
+        EditText nameEditText = findViewById(R.id.txtname);
+        EditText emailEditText = findViewById(R.id.txtemail);
+        EditText passwordEditText = findViewById(R.id.txtpassword);
 
+        // Set up Spinner
+        String[] roles = getResources().getStringArray(R.array.role);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        roleSpinner.setAdapter(adapter);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                startActivity(intent);
+                String name = nameEditText.getText().toString().trim();
+                String email = emailEditText.getText().toString().trim();
+                String password = passwordEditText.getText().toString().trim();
+                String role = roleSpinner.getSelectedItem().toString();
+
+                if (name.isEmpty() || email.isEmpty() || password.isEmpty() || role.equals("Select Role")) {
+                    Toast.makeText(SignupActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    boolean isAdded = databaseHelper.addUser(name, email, password, role);
+                    if (isAdded) {
+                        Toast.makeText(SignupActivity.this, "Signup successful", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(SignupActivity.this, "Signup failed. Try again.", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
-        // Get string array from resources
-        String[] roles = getResources().getStringArray(R.array.role);
 
-        // Set up ArrayAdapter
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Set adapter to Spinner
-        roleSpinner.setAdapter(adapter);
-
-        // Set OnItemSelectedListener
+        // Handle Spinner item selection
         roleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
                     // Disable "Select" option
                     ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(android.R.color.darker_gray));
-                } else {
-                    // Handle valid selection
-                    String selectedRole = roles[position];
-                    Toast.makeText(SignupActivity.this, "Selected: " + selectedRole, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -60,10 +75,6 @@ public class SignupActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
                 // Optional: Handle no selection
             }
-
-
-
-
         });
     }
 }
