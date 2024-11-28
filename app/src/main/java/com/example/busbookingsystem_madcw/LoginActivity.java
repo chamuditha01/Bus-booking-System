@@ -55,30 +55,43 @@ public class LoginActivity extends AppCompatActivity {
 
             // Validate user using DatabaseHelper
             SQLiteDatabase db = databaseHelper.getReadableDatabase();
-            String query = "SELECT role FROM users WHERE email = ? AND password = ?";
+            String query = "SELECT id,role FROM users WHERE email = ? AND password = ?";
             try (Cursor cursor = db.rawQuery(query, new String[]{email, password})) {
-                if (cursor.moveToFirst()) {
-                    String role = cursor.getString(0);
-                    Log.d("LoginActivity", "User role: " + role);
 
-                    Intent intent;
-                    switch (role.toLowerCase()) {
-                        case "passenger":
-                            intent = new Intent(LoginActivity.this, PassengerDashboard.class);
-                            break;
-                        case "driver":
-                            intent = new Intent(LoginActivity.this, DriverDashboard.class);
-                            break;
-                        case "owner":
-                            intent = new Intent(LoginActivity.this, DriverDashboard.class);
-                            break;
-                        default:
-                            Toast.makeText(this, "Invalid role", Toast.LENGTH_SHORT).show();
-                            return;
+                if (cursor.moveToFirst()) {
+                    String role = cursor.getString(1);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        // Index 0: user_id, Index 1: role
+                        int userId = cursor.getInt(0);  // Ensure user_id is the first column in the SELECT
+                        String role1 = cursor.getString(1); // Ensure role is the second column
+                        Log.d("LoginActivity", "User ID: " + userId + ", Role: " + role1);
+
+                        Intent intent;
+                        switch (role.toLowerCase()) {
+                            case "passenger":
+                                intent = new Intent(LoginActivity.this, PassengerDashboard.class);
+                                break;
+                            case "driver":
+                                intent = new Intent(LoginActivity.this, DriverDashboard.class);
+                                break;
+                            case "busowner":
+                                intent = new Intent(LoginActivity.this, OwnerDashboard.class);
+
+                                break;
+                            default:
+                                Toast.makeText(this, "Invalid role", Toast.LENGTH_SHORT).show();
+                                return;
+                        }
+                        intent.putExtra("user_id", userId);
+                        startActivity(intent);
                     }
-                    startActivity(intent);
+
+
+
+
                 } else {
-                    Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(this, "Invalid email or password", Toast.LENGTH_SHORT ).show();
                 }
             }
         });

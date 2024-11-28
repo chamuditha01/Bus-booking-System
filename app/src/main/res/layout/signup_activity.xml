@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/txtemail"
+        android:id="@+id/txtbusnum"
         android:layout_width="269dp"
         android:layout_height="54dp"
         android:layout_marginStart="75dp"
@@ -66,7 +66,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinnerrole"
+        android:id="@+id/spinnerroute"
         android:layout_width="269dp"
         android:layout_height="54dp"
         android:layout_marginStart="75dp"
@@ -77,7 +77,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/btnsignup"
+        android:id="@+id/btnaddbus"
         android:layout_width="168dp"
         android:layout_height="47dp"
         android:layout_marginStart="120dp"

@@ -25,10 +25,10 @@ public class SignupActivity extends AppCompatActivity {
 
         // Initialize views and database helper
         databaseHelper = new DatabaseHelper(this);
-        Spinner roleSpinner = findViewById(R.id.spinnerrole);
-        Button signupButton = findViewById(R.id.btnsignup);
+        Spinner roleSpinner = findViewById(R.id.spinnerroute);
+        Button signupButton = findViewById(R.id.btnaddbus);
         EditText nameEditText = findViewById(R.id.txtname);
-        EditText emailEditText = findViewById(R.id.txtemail);
+        EditText emailEditText = findViewById(R.id.txtbusnum);
         EditText passwordEditText = findViewById(R.id.txtpassword);
 
         // Set up Spinner
@@ -44,11 +44,12 @@ public class SignupActivity extends AppCompatActivity {
                 String email = emailEditText.getText().toString().trim();
                 String password = passwordEditText.getText().toString().trim();
                 String role = roleSpinner.getSelectedItem().toString();
+                String profilePicture = "default";
 
                 if (name.isEmpty() || email.isEmpty() || password.isEmpty() || role.equals("Select Role")) {
                     Toast.makeText(SignupActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    boolean isAdded = databaseHelper.addUser(name, email, password, role);
+                    boolean isAdded = databaseHelper.addUser(name, email, password, role, profilePicture);
                     if (isAdded) {
                         Toast.makeText(SignupActivity.this, "Signup successful", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
