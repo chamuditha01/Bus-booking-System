@@ -24,8 +24,10 @@ public class SelectBuses extends AppCompatActivity {
         Log.d("SelectBuses", "SelectBuses loaded.");
 
         // Get inputs from the Intent
+        String selectedDate = getIntent().getStringExtra("selectedDate");
         String txtfrom = getIntent().getStringExtra("from");
         String txtto = getIntent().getStringExtra("to");
+        int user_id= getIntent().getIntExtra("user_id", -1);
 
         // Fetch available bus routes
         DatabaseHelper dbHelper = new DatabaseHelper(this);
@@ -41,12 +43,18 @@ public class SelectBuses extends AppCompatActivity {
                 Button busButton = new Button(this);
                 String busNumber = bus.get("bus_number");
                 String route = bus.get("route");
+                String busIdStr = bus.get("bid");
+
 
                 busButton.setText(busNumber + " - " + route);
                 busButton.setOnClickListener(v -> {
                     Log.d("SelectBuses", "Selected Bus: " + busNumber);
                     Intent intent = new Intent(SelectBuses.this, BusSheats.class);
                     intent.putExtra("busNumber", busNumber);
+                    intent.putExtra("selectedDate", selectedDate);
+                    intent.putExtra("user_id", user_id);
+                    intent.putExtra("busId", busIdStr);
+                    Log.d("Tbusiddd", busIdStr);
                     startActivity(intent);
                 });
 

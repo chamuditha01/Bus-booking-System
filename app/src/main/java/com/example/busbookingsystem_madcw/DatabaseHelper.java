@@ -226,7 +226,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Query to join Buses and Routes tables and filter by start and end points
-        String query = "SELECT b.bus_number, r.start_point, r.end_point " +
+        String query = "SELECT b.id,b.bus_number, r.start_point, r.end_point " +
                 "FROM Buses b " +
                 "JOIN Routes r ON b.route_id = r.route_id " +
                 "WHERE r.start_point = ? AND r.end_point = ?";
@@ -238,17 +238,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
+                String busNumber = cursor.getString(cursor.getColumnIndexOrThrow("bus_number"));
+                String busId = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                String startPoint = cursor.getString(cursor.getColumnIndexOrThrow("start_point"));
+                String endPoint = cursor.getString(cursor.getColumnIndexOrThrow("end_point"));
+
+                Log.d("DB", "Fetched data: BusNumber = " + busNumber + ", BusId = " + busId + ", Route = " + startPoint + " to " + endPoint);
+
                 HashMap<String, String> busDetail = new HashMap<>();
-                busDetail.put("bus_number", cursor.getString(cursor.getColumnIndexOrThrow("bus_number")));
-                busDetail.put("route", cursor.getString(cursor.getColumnIndexOrThrow("start_point"))
-                        + " to " + cursor.getString(cursor.getColumnIndexOrThrow("end_point")));
+                busDetail.put("bus_number", busNumber);
+                busDetail.put("bid", busId);
+                busDetail.put("route", startPoint + " to " + endPoint);
 
                 busDetailsList.add(busDetail); // Add each bus detail to the list
-                Log.d("msg", "getBusNumbersAndRoutes: " + busDetail);
             } while (cursor.moveToNext());
         } else {
-            Log.d("TAG", "getBusNumbersAndRoutes: No buses found for the specified route.");
+            Log.d("TAG", "No buses found for the specified route.");
         }
+
 
         if (cursor != null) {
             cursor.close();
